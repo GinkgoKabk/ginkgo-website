@@ -1,0 +1,1126 @@
+/* style.css */
+html,
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, serif;
+  cursor: auto;
+
+}
+
+a,
+button,
+input[type="button"],
+input[type="submit"],
+.project-card,
+label,
+select,
+[role="button"],
+[tabindex]:not([tabindex="-1"]) {
+  cursor: pointer;
+}
+
+header {
+  display: flex;
+  /* Use flexbox for alignment */
+  align-items: center;
+  /* Vertically align items */
+  justify-content: space-between;
+  /* Distribute space between items */
+  background-color: #ffffff;
+  padding: 2px 2px;
+  /* Add padding for spacing */
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 2px dotted #2D3C25;
+  margin: 30px 30px 3px 30px;
+
+
+}
+
+header p {
+  margin: 0;
+  /* Remove default margin */
+  font-size: 24px;
+  /* Adjust font size */
+  text-align: left;
+  /* Ensure text is aligned to the left */
+  color: #2D3C25;
+
+}
+
+header nav {
+  display: flex;
+  /* Align navigation links in a row */
+  align-items: center;
+  /* Center the links */
+  gap: 25px;
+  /* Add spacing between links */
+  margin-left: auto;
+  /* Pushes the nav to the right */
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+
+}
+
+
+header a {
+  text-decoration: none;
+  /* Remove underline from links */
+  color: #2D3C25;
+  /* Set link color */
+  font-size: 24px;
+  /* Adjust font size */
+
+}
+
+h3 {
+  color: #2D3C25;
+  font-style: italic;
+  font-weight: normal;
+  /* This removes the default bold */
+}
+
+
+
+/* Basic layout for the project grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+  /* Add padding if needed for ant space */
+  margin: 10px 30px 3px 30px;
+  border: 2px dotted #2D3C25;
+  /* Optional: Add a border */
+}
+
+/* Ants on the border */
+.ants-border {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+}
+
+.ants-border img.ant-border-img {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  transition: transform 0.1s linear;
+}
+
+/* Project card styles */
+.project-card {
+  display: grid;
+  /* Use grid layout for the card */
+  grid-template-rows: auto;
+  gap: 10px;
+  /* Add spacing between rows */
+  background-color: #ffffff;
+  padding: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2px;
+  transition: background 0.5s, color 0.2s;
+
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  color: #2D3C25;
+}
+
+.project-card:hover {
+  background: #2D3C25;
+}
+
+/* Summary section (basic information) */
+.project-summary {
+  display: grid;
+  /* Use grid layout */
+  grid-template-columns: repeat(5, 1fr);
+  /* Fixed width for date, flexible for artist and tags */
+  gap: 5px;
+  /* Add spacing between columns */
+  align-items: center;
+  /* Align items vertically */
+  cursor: pointer;
+  padding: 10px;
+}
+
+.project-summary:hover {
+  background: #2D3C25;
+  color: #fff;
+}
+
+.project-summary:hover h3,
+.project-summary:hover .date,
+.project-summary:hover .artist,
+.project-summary:hover .area,
+.project-summary:hover .tags,
+.project-summary:hover p,
+.project-summary:hover a {
+  color: #EA9B3F !important;
+}
+
+.project-summary h3 {
+  grid-column: 1 / 6;
+  /* Make the title span all columns */
+  margin: 0;
+  font-size: 20px;
+  color: #2D3C25;
+}
+
+.project-summary .date {
+  grid-column: 1;
+  /* Start the date in the same column as the h3 */
+  font-size: 16px;
+  color: #2D3C25;
+
+}
+
+.project-summary .artist {
+  grid-column: 2;
+  /* Place the artist in the second column */
+  font-size: 16px;
+  color: #2D3C25;
+}
+
+.project-summary .artist a {
+  color: #2D3C25;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.project-summary .artist a:hover,
+.project-summary .artist a:focus,
+.project-summary:hover .artist a {
+  color: #EA9B3F !important;
+  text-decoration: underline;
+}
+
+
+.project-summary .area {
+  grid-column: 3;
+  /* Place the area in the third column */
+  font-size: 16px;
+  color: #2D3C25;
+}
+
+.project-summary .tags {
+  grid-column: 4 / 6;
+  /* Make the tags span the 4th and 5th columns */
+  padding-left: 20px;
+  grid-row: 2;
+  text-align: right;
+  color: #2D3C25;
+
+}
+
+.project-summary p {
+  margin: 0;
+  font-size: 15px;
+  color: #2D3C25;
+
+}
+
+
+/* Hide the project details by default */
+.project-details {
+  display: none;
+  /* Initially hidden */
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* Expandable animation */
+.project-card.expanded {
+  background: #2D3C25;
+  color: #fff;
+  border-color: #2D3C25;
+}
+
+.project-card.expanded .project-summary h3,
+.project-card.expanded .project-summary .date,
+.project-card.expanded .project-summary .artist,
+.project-card.expanded .project-summary .area,
+.project-card.expanded .project-summary .tags,
+.project-card.expanded .project-summary p,
+.project-card.expanded .project-details,
+.project-card.expanded .project-details p {
+  color: #EA9B3F;
+}
+
+.project-card.expanded .project-details {
+  display: block;
+  /* animation: expand 0.3s ease-in-out; */
+  /* REMOVED animation */
+}
+
+.description-content p,
+.project-details p {
+  font-size: 30px;
+  /* Doubled from ~15px default */
+  line-height: 1.4;
+}
+
+/* Add images' style for the expanded section */
+/* Add images' style for the expanded section */
+.project-images {
+  display: flex;
+  /* Use flexbox for horizontal stacking */
+  flex-wrap: wrap;
+  /* Allow wrapping if there are many images */
+  gap: 15px;
+  /* Add spacing between images */
+  padding: 10px;
+  justify-content: flex-start;
+  /* Align to the left */
+  align-items: center;
+  /* Vertically align centers */
+}
+
+.project-images img {
+  height: 120px;
+  /* Fixed height for thumbnails */
+  width: auto;
+  /* Maintain original aspect ratio */
+  max-width: 100%;
+  /* Prevent overflowing container */
+  object-fit: contain;
+  /* Ensure whole image is visible */
+  cursor: zoom-in;
+  background-color: transparent;
+  /* Remove any white bg if PNG */
+  border: none;
+  /* REMOVED border as requested */
+  box-shadow: none;
+  /* REMOVED shadow as requested */
+}
+
+/* Enlarged image style for desktop */
+/* Enlarged image style for desktop */
+.project-images img.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  z-index: 100000;
+  transform: translate(-50%, -50%) scale(1.1);
+  /* Kept scale for centering logic, but removing transition makes it instant */
+  box-shadow: none;
+  /* Removed shadow */
+  border-radius: 0;
+  background: transparent;
+  /* Removed white BG */
+  transition: none;
+  /* REMOVED animation */
+  cursor: zoom-out;
+}
+
+@media (pointer: coarse) {
+  .project-images img.expanded {
+    position: static;
+    max-width: 100%;
+    max-height: 100%;
+    transform: none;
+    box-shadow: none;
+    background: none;
+    cursor: pointer;
+  }
+}
+
+
+
+
+
+/* Filter Section */
+/* Filter Section */
+.filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+  /* Custom widths: Title wider, Year narrower */
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border: 2px dotted #2D3C25;
+  color: #2D3C25;
+  margin: 10px 30px 3px 30px;
+}
+
+.filters input,
+.filters select {
+  width: 100%;
+  padding: 4px;
+  font-size: 14px;
+  border: 1px dotted #2D3C25;
+  color: #2D3C25;
+  background: white;
+  box-sizing: border-box;
+}
+
+/* Specific alignments matching project-summary fields */
+#tag-search {
+  grid-column: 1;
+}
+
+#artist-filter {
+  grid-column: 2;
+}
+
+#area-filter {
+  grid-column: 3;
+}
+
+/* Column 4 is empty in filters for now, serves as spacer or future use */
+
+#date-filter {
+  grid-column: 5;
+}
+
+
+/* Summary section (basic information) */
+.project-summary {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+  /* Must match .filters exactly */
+  gap: 10px;
+  align-items: baseline;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.project-summary h3 {
+  grid-column: 1;
+  grid-row: 1;
+  /* Ensure it stays on line 1 */
+  margin: 0;
+  font-size: 20px;
+  color: #2D3C25;
+  white-space: nowrap;
+  /* Optional: Keep title on one line? Or allow wrap? User said "first line". Let's allow wrap but keep in col. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* If title is too long, we might want it to wrap. */
+.project-summary h3 {
+  white-space: normal;
+  overflow: visible;
+}
+
+
+.project-summary .artist {
+  grid-column: 2;
+  font-size: 16px;
+  color: #2D3C25;
+}
+
+.project-summary .area {
+  grid-column: 3;
+  font-size: 16px;
+  color: #2D3C25;
+}
+
+.project-summary .tags {
+  grid-column: 4;
+  padding-left: 0;
+  grid-row: 1;
+  text-align: left;
+  color: #2D3C25;
+  font-size: 14px;
+}
+
+.project-summary .date {
+  grid-column: 5;
+  /* Year moved to the end */
+  font-size: 16px;
+  color: #2D3C25;
+  text-align: right;
+}
+
+.project-summary p {
+  margin: 0;
+  color: #2D3C25;
+}
+
+/* Links inside artist */
+.project-summary .artist a {
+  color: #2D3C25;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+
+#tag-search {
+  cursor: pointer;
+}
+
+#ant {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  transition: transform 0.1s linear;
+  z-index: 9999;
+}
+
+.ginkgo-logo {
+  height: 70px;
+  max-width: 260px;
+  margin-left: 10px;
+}
+
+@media (max-width: 1200px) {
+  .ginkgo-logo {
+    height: 70px;
+    max-width: 180px;
+  }
+
+  header nav a,
+  header p {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .ginkgo-logo {
+    height: 60px;
+    max-width: 140px;
+  }
+
+  header nav a,
+  header p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ginkgo-logo {
+    height: 40px;
+    padding: 4px;
+    margin-left: 2px;
+  }
+
+  header nav a,
+  header p {
+    font-size: 12px;
+  }
+}
+
+footer {
+  color: #2D3C25;
+}
+
+/* Popup modal overlay */
+#popup-modal {
+  display: none;
+  /* Default hidden, shown by JS */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100000;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Popup content box */
+#popup-modal>div {
+  background: #2D3C25 !important;
+  padding: 40px !important;
+  width: 600px !important;
+  height: 600px !important;
+  position: relative;
+  color: #EA9B3F;
+  border-radius: 0px !important;
+  border: 2px dotted #EA9B3F !important;
+  margin: 60px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-modal-content {
+  background: #2D3C25 !important;
+  padding: 40px !important;
+  width: 600px !important;
+  height: 600px !important;
+  max-width: 95vw;
+  border-radius: 0;
+  border: 2px dotted #EA9B3F !important;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 60px !important;
+  margin-top: 60px !important;
+  color: #EA9B3F;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+
+  .popup-modal-content,
+  #popup-modal>div {
+    width: 90vw !important;
+    height: auto !important;
+    min-height: 320px;
+    max-width: 98vw;
+    max-height: 80vh;
+    padding: 12px !important;
+    margin: 8px !important;
+    margin-top: 8px !important;
+  }
+
+  .popup-modal-content h2,
+  #popup-modal>div h2 {
+    font-size: 1.1rem;
+    /* Match main popup title size */
+    margin-bottom: 8px;
+  }
+
+  .popup-modal-content p,
+  #popup-modal>div p {
+    font-size: 0.85rem;
+    /* Match main popup text size */
+    margin-bottom: 8px;
+  }
+
+  .popup-image-container img {
+    max-width: 200px !important;
+    width: 200px !important;
+    height: auto !important;
+    margin: 4px 0 !important;
+    display: block;
+  }
+}
+
+.popup-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 auto;
+}
+
+.popup-image-container img {
+  max-width: 300px;
+  /* Change this value to make images smaller or larger */
+  margin: 10px 0;
+  /* Change these values to adjust vertical/horizontal margin */
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Close button */
+#close-popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #2D3C25;
+  cursor: pointer;
+  line-height: 1;
+}
+
+#popup-btn {
+  background: #ffffff;
+  color: #2D3C25;
+  border: 2px dotted #2D3C25;
+  padding: 3px 10px;
+  border-radius: 50%;
+  font-size: 16px;
+  font-family: Georgia, serif;
+  cursor: pointer;
+  margin-left: 400px;
+  transition: background 0.5s, color 0.2s;
+
+}
+
+#popup-btn:hover,
+#popup-btn:focus {
+  background: #2D3C25;
+  color: #EA9B3F;
+}
+
+/* News article card style, matching project-card */
+.news-article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+  background-color: #ffffff;
+  padding: 14px;
+  /* Reduced from 20px for a more compact look on desktop */
+  margin: 0;
+  border: 2px dotted #2D3C25;
+  border-radius: 0px;
+  transition: background 0.5s, color 0.2s;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+  height: 340px;
+  max-height: 340px;
+  overflow: hidden;
+}
+
+.news-article:hover {
+  background: #2D3C25;
+  color: #EA9B3F;
+}
+
+.news-article h3,
+.news-article p {
+  color: #2D3C25;
+  margin: 0 0 2px 0;
+}
+
+.news-article a {
+  display: none;
+}
+
+.news-article:hover h3,
+.news-article:hover p,
+.news-article:hover a {
+  color: #EA9B3F;
+}
+
+.news-article .news-image {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  border-radius: 0px;
+  background: #fff;
+}
+
+.news-article.show-image .news-image {
+  display: block;
+}
+
+.news-article .news-content {
+  flex: 1 1 auto;
+  width: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-right: 8px;
+  position: relative;
+  z-index: 3;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+.news-article .news-content::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+.news-article .news-content h3,
+.news-article .news-content p {
+  margin-top: 8px;
+}
+
+.news-article.show-image .news-content {
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+
+/* News list styles */
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* 5 columns for very wide screens */
+  gap: 12px;
+  /* Reduced gap for desktop */
+  margin: 30px 30px 3px 30px;
+}
+
+@media (max-width: 1500px) {
+  .news-list {
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columns for standard desktop */
+  }
+}
+
+@media (max-width: 1200px) {
+  .news-list {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns for tablets */
+  }
+}
+
+@media (max-width: 900px) {
+  .news-list {
+    grid-template-columns: 1fr;
+    /* 1 column for mobile */
+    gap: 20px;
+    /* Restore larger gap for mobile */
+  }
+}
+
+/* ===================== Responsive Adjustments ===================== */
+@media (max-width: 1200px) {
+  .news-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .news-list {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .form-page-form input,
+  .form-page-form textarea {
+    width: 95%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (pointer: coarse),
+(max-width: 900px) {
+  .img-arrow {
+    display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  header nav {
+    gap: 10px;
+    padding: 2px 0;
+  }
+
+  header nav a {
+    font-size: 12px;
+    padding: 1px 0;
+  }
+
+  .ginkgo-logo {
+    height: 40px;
+    padding: 4px;
+    margin-left: 2px;
+  }
+
+  header {
+    margin: 8px 4px 2px 4px;
+    padding: 2px 2px;
+  }
+
+  .projects-grid {
+    margin: 4px 4px 2px 4px;
+  }
+
+  .project-summary h3,
+  .project-summary .date,
+  .project-summary .artist,
+  .project-summary .area,
+  .project-summary .tags,
+  .project-summary p {
+    font-size: 12px;
+  }
+
+  #popup-modal>div {
+    width: 90vw !important;
+    height: auto !important;
+    min-height: 400px;
+    max-width: 98vw;
+    max-height: 90vh;
+    padding: 24px !important;
+    margin: 18px !important;
+  }
+
+  #tag-search {
+    margin: 2px 0 2px 0;
+    padding: 1px 4px;
+    font-size: 12px;
+  }
+
+  #popup-btn {
+    font-size: 12px;
+    padding: 2px 6px;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+  }
+
+  .filters {
+    margin: 4px 4px 2px 4px;
+    padding: 4px;
+    gap: 6px;
+    justify-content: flex;
+  }
+
+  .form-submission {
+    margin: 4px 4px 2px 4px !important;
+    padding: 8px !important;
+    width: auto !important;
+    box-sizing: border-box;
+  }
+
+  .contact-form {
+    margin: 4px 4px 2px 4px !important;
+    padding: 8px !important;
+    width: auto !important;
+    box-sizing: border-box;
+  }
+
+  .news-list {
+    margin: 20px 4px 2px 4px !important;
+    justify-items: center;
+  }
+
+  .news-article {
+    margin: 0 auto !important;
+    padding: 8px !important;
+    width: 100% !important;
+    max-width: 100%;
+    border-left: 2px dotted #2D3C25;
+    border-right: 2px dotted #2D3C25;
+    border-radius: 0;
+    box-sizing: border-box;
+    text-align: center;
+    align-items: center;
+    height: 280px;
+    max-height: 280px;
+  }
+
+  .news-article .news-content {
+    flex: 1 1 auto;
+    width: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding-right: 8px;
+    position: relative;
+    z-index: 3;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .news-article .news-content::-webkit-scrollbar {
+    display: none;
+  }
+
+  .popup-modal-content,
+  #popup-modal>div {
+    width: 90vw !important;
+    height: auto !important;
+    min-height: 320px;
+    max-width: 98vw;
+    max-height: 80vh;
+    padding: 12px !important;
+    margin: 8px !important;
+    margin-top: 8px !important;
+  }
+
+  .popup-modal-content h2,
+  #popup-modal>div h2 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .popup-modal-content p,
+  #popup-modal>div p {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+
+  .popup-image-container img {
+    max-width: 200px !important;
+    width: 200px !important;
+    height: auto !important;
+    margin: 4px 0 !important;
+    display: block;
+  }
+}
+
+/* Form submission styles */
+.form-submission {
+  background-color: #ffffff;
+  border: 2px dotted #2D3C25;
+  border-radius: 0px;
+  padding: 20px;
+  margin: 30px 30px 3px 30px;
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.form-submission label {
+  color: #2D3C25;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+}
+
+.form-submission input,
+.form-submission textarea {
+  border: 1px dotted #2D3C25;
+  padding: 4px;
+  font-size: 14px;
+  color: #2D3C25;
+  background: #fff;
+  border-radius: 0px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  min-width: 260px;
+  max-width: 500px;
+}
+
+.form-submission button {
+  background: #2D3C25;
+  color: #EA9B3F;
+  border: 2px dotted #EA9B3F;
+  border-radius: 0px;
+  padding: 6px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.5s, color 0.2s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.form-submission button:hover {
+  background: #EA9B3F;
+  color: #2D3C25;
+}
+
+.contact-form {
+  background-color: #ffffff;
+  border: 2px dotted #2D3C25;
+  border-radius: 0px;
+  padding: 20px;
+  margin: 30px 30px 3px 30px;
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.contact-form label {
+  color: #2D3C25;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  border: 1px dotted #2D3C25;
+  padding: 4px;
+  font-size: 14px;
+  color: #2D3C25;
+  background: #fff;
+  border-radius: 0px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  min-width: 260px;
+  max-width: 500px;
+}
+
+.contact-form button {
+  background: #2D3C25;
+  color: #EA9B3F;
+  border: 2px dotted #EA9B3F;
+  border-radius: 0px;
+  padding: 6px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.5s, color 0.2s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.contact-form button:hover {
+  background: #EA9B3F;
+  color: #2D3C25;
+}
+
+.img-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.2rem;
+  /* Smaller arrow */
+  color: #EA9B3F;
+  background: #2D3C25;
+  /* Not transparent */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100001;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: background 0.2s;
+}
+
+.img-arrow:hover {
+  background: #EA9B3F;
+  color: #2D3C25;
+}
+
+.img-arrow-left {
+  left: 60px;
+  /* More margin from edge */
+}
+
+.img-arrow-right {
+  right: 60px;
+  /* More margin from edge */
+}
+
+body,
+.contact-form,
+.contact-form label,
+.contact-form input,
+.contact-form textarea,
+.contact-form h2,
+.contact-form p {
+  color: #2D3C25 !important;
+}
