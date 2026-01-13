@@ -1021,11 +1021,25 @@ footer {
   }
 
   .popup-image-container img {
-    max-width: 200px !important;
-    width: 200px !important;
-    height: auto !important;
     margin: 4px 0 !important;
     display: block;
+  }
+
+  /* Mobile: Hide tags in default view */
+  .project-summary .tags {
+    display: none;
+  }
+
+  /* Mobile: Show tags in expanded view, on second line */
+  .project-card.expanded .project-summary .tags {
+    display: flex;
+    grid-column: 1 / -1;
+    /* Span full width */
+    grid-row: 2;
+    /* Move to second row */
+    margin-top: 10px;
+    padding-left: 0;
+    justify-content: flex-start;
   }
 }
 
