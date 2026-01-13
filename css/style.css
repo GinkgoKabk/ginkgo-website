@@ -1181,6 +1181,12 @@ footer {
     padding-left: 0;
     justify-content: flex-start;
   }
+
+  /* Half size text for article descriptions on mobile */
+  .description-content p,
+  .project-details p {
+    font-size: 15px;
+  }
 }
 
 /* Form submission styles */
