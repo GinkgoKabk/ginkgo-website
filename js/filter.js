@@ -84,6 +84,28 @@ function initializeProjectInteractions() {
   });
 }
 
+// --- Gallery Helper Functions ---
+
+function closeGallery() {
+  const expandedImg = document.querySelector('.project-images img.expanded');
+  if (expandedImg) {
+    expandedImg.classList.remove('expanded');
+  }
+  removeImageArrows();
+  removeOverlay();
+  document.removeEventListener('keydown', handleArrowNav);
+}
+
+function openGallery(img) {
+  // Close any currently open gallery first
+  closeGallery();
+
+  img.classList.add('expanded');
+  createOverlay();
+  showImageArrows(img);
+  document.addEventListener('keydown', handleArrowNav);
+}
+
 function createOverlay() {
   if (document.querySelector('.gallery-overlay')) return;
   const overlay = document.createElement('div');
@@ -93,15 +115,9 @@ function createOverlay() {
   overlay.offsetHeight;
   overlay.classList.add('visible');
 
-  // Click on overlay closes image
+  // Click on overlay closes gallery
   overlay.onclick = () => {
-    const expandedImg = imageGroup.querySelector('img.expanded');
-    if (expandedImg) {
-      expandedImg.classList.remove('expanded');
-      removeImageArrows();
-      removeOverlay();
-      document.removeEventListener('keydown', handleArrowNav);
-    }
+    closeGallery();
   };
 }
 
@@ -113,9 +129,80 @@ function removeOverlay() {
       if (overlay && overlay.parentNode) {
         overlay.remove();
       }
-    }, 300); // Wait for transition
+    }, 300);
   }
 }
+
+function showImageArrows(currentImg) {
+  removeImageArrows();
+  // Find siblings in the same group
+  const imageGroup = currentImg.closest('.project-images');
+  if (!imageGroup) return;
+
+  const imagesArr = Array.from(imageGroup.querySelectorAll('img'));
+  const idx = imagesArr.indexOf(currentImg);
+
+  // Left arrow
+  if (idx > 0) {
+    const leftArrow = document.createElement('div');
+    leftArrow.className = 'img-arrow img-arrow-left';
+    leftArrow.innerHTML = '&#8592;';
+    leftArrow.onclick = (e) => {
+      e.stopPropagation();
+      openGallery(imagesArr[idx - 1]);
+    };
+    document.body.appendChild(leftArrow);
+  }
+  // Right arrow
+  if (idx < imagesArr.length - 1) {
+    const rightArrow = document.createElement('div');
+    rightArrow.className = 'img-arrow img-arrow-right';
+    rightArrow.innerHTML = '&#8594;';
+    rightArrow.onclick = (e) => {
+      e.stopPropagation();
+      openGallery(imagesArr[idx + 1]);
+    };
+    document.body.appendChild(rightArrow);
+  }
+}
+
+function removeImageArrows() {
+  document.querySelectorAll('.img-arrow').forEach(arrow => arrow.remove());
+}
+
+function handleArrowNav(e) {
+  const expandedImg = document.querySelector('.project-images img.expanded');
+  if (!expandedImg) return;
+
+  const imageGroup = expandedImg.closest('.project-images');
+  const images = Array.from(imageGroup.querySelectorAll('img'));
+  const idx = images.indexOf(expandedImg);
+
+  if (e.key === 'ArrowLeft' && idx > 0) {
+    openGallery(images[idx - 1]);
+    e.preventDefault();
+  } else if (e.key === 'ArrowRight' && idx < images.length - 1) {
+    openGallery(images[idx + 1]);
+    e.preventDefault();
+  } else if (e.key === 'Escape') {
+    closeGallery();
+    e.preventDefault();
+  }
+}
+
+// Global click listener to close if clicking outside (fallback)
+document.addEventListener('click', (e) => {
+  const expandedImg = document.querySelector('.project-images img.expanded');
+  // If there is an expanded image
+  if (expandedImg) {
+    // If the click is NOT on the image, NOT on an arrow, and NOT on the overlay (overlay has its own handler)
+    if (!e.target.classList.contains('expanded') &&
+      !e.target.classList.contains('img-arrow') &&
+      !e.target.classList.contains('gallery-overlay')) {
+      closeGallery();
+    }
+  }
+});
 
 
 function initializeImageInteractions(card) {
@@ -124,112 +211,20 @@ function initializeImageInteractions(card) {
 
   const images = Array.from(imageGroup.querySelectorAll('img'));
   images.forEach((img) => {
-    img.addEventListener('click', (e) => {
+    // Clone to remove old listeners if re-initializing
+    const newImg = img.cloneNode(true);
+    img.parentNode.replaceChild(newImg, img);
+
+    newImg.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (img.classList.contains('expanded')) {
-        img.classList.remove('expanded');
-        removeImageArrows();
-        removeOverlay();
-        document.removeEventListener('keydown', handleArrowNav);
+      if (newImg.classList.contains('expanded')) {
+        closeGallery();
       } else {
-        // Collapse any other expanded images
-        document.querySelectorAll('.project-images img.expanded').forEach(expandedImg => {
-          expandedImg.classList.remove('expanded');
-        });
-        // Collapse any other overlays just in case (though one global is fine)
-        // actually we just reuse logic
-
-        img.classList.add('expanded');
-        createOverlay(); // Add backdrop
-
-        // Add navigation arrows
-        showImageArrows(img, images);
-        // Keyboard navigation
-        document.addEventListener('keydown', handleArrowNav);
+        openGallery(newImg);
       }
     });
-  });
-
-  function showImageArrows(currentImg, imagesArr) {
-    removeImageArrows();
-    const idx = imagesArr.indexOf(currentImg);
-    // Left arrow
-    if (idx > 0) {
-      const leftArrow = document.createElement('div');
-      leftArrow.className = 'img-arrow img-arrow-left';
-      leftArrow.innerHTML = '&#8592;';
-      leftArrow.onclick = (e) => {
-        e.stopPropagation();
-        imagesArr[idx].classList.remove('expanded');
-        imagesArr[idx - 1].classList.add('expanded');
-        showImageArrows(imagesArr[idx - 1], imagesArr);
-      };
-      document.body.appendChild(leftArrow);
-    }
-    // Right arrow
-    if (idx < imagesArr.length - 1) {
-      const rightArrow = document.createElement('div');
-      rightArrow.className = 'img-arrow img-arrow-right';
-      rightArrow.innerHTML = '&#8594;';
-      rightArrow.onclick = (e) => {
-        e.stopPropagation();
-        imagesArr[idx].classList.remove('expanded');
-        imagesArr[idx + 1].classList.add('expanded');
-        showImageArrows(imagesArr[idx + 1], imagesArr);
-      };
-      document.body.appendChild(rightArrow);
-    }
-  }
-
-  function removeImageArrows() {
-    document.querySelectorAll('.img-arrow').forEach(arrow => arrow.remove());
-  }
-
-  function handleArrowNav(e) {
-    const expandedImg = imageGroup.querySelector('img.expanded');
-    if (!expandedImg) return;
-    // ... (Rest of arrow logic remains similar or needs scoping) ...
-    // Simplified for brevity, relying on closure scope of 'images'
-    const idx = images.indexOf(expandedImg);
-    if (e.key === 'ArrowLeft' && idx > 0) {
-      images[idx].classList.remove('expanded');
-      images[idx - 1].classList.add('expanded');
-      showImageArrows(images[idx - 1], images);
-      e.preventDefault();
-    } else if (e.key === 'ArrowRight' && idx < images.length - 1) {
-      images[idx].classList.remove('expanded');
-      images[idx + 1].classList.add('expanded');
-      showImageArrows(images[idx + 1], images);
-      e.preventDefault();
-    } else if (e.key === 'Escape') {
-      images[idx].classList.remove('expanded');
-      removeImageArrows();
-      removeOverlay();
-      document.removeEventListener('keydown', handleArrowNav);
-      e.preventDefault();
-    }
-  }
-
-  // Remove arrows and key listener when clicking outside
-  // Note: overlay.onclick will handle most clicks outside.
-  // This listener on document might still be useful as fallback?
-  document.addEventListener('click', (e) => {
-    const expandedImg = imageGroup.querySelector('img.expanded');
-    // If we clicked on overlay, that handler takes care.
-    // If we click on something else?
-
-    if (expandedImg && !e.target.classList.contains('expanded') && !e.target.classList.contains('img-arrow')) {
-      // Check if it was the overlay (handled elsewhere)
-      if (!e.target.classList.contains('gallery-overlay')) {
-        expandedImg.classList.remove('expanded');
-        removeImageArrows();
-        removeOverlay();
-        document.removeEventListener('keydown', handleArrowNav);
-      }
-    }
   });
 }
 
 // Previously this ran on load, now we expose it.
-// document.addEventListener('DOMContentLoaded', initializeProjectInteractions); 
-// (Commented out because fetchProjects will call it)
+// document.addEventListener('DOMContentLoaded', initializeProjectInteractions);
