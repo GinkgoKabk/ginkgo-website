@@ -888,7 +888,7 @@ footer {
   }
 
   header nav a {
-    font-size: 12px;
+    font-size: 14px;
     padding: 1px 0;
   }
 
@@ -907,13 +907,22 @@ footer {
     margin: 4px 4px 2px 4px;
   }
 
-  .project-summary h3,
+  .project-summary h3 {
+    font-size: 17px;
+  }
+
   .project-summary .date,
   .project-summary .artist,
   .project-summary .area,
   .project-summary .tags,
-  .project-summary p {
-    font-size: 12px;
+  .project-summary p,
+  .project-summary .artist a {
+    font-size: 15px;
+  }
+
+  .project-summary .artist {
+    margin-bottom: 6px;
+    /* Gap between Artist and Area */
   }
 
   #popup-modal>div {
