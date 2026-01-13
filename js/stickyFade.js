@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let fadeTimeout;
     const idleTime = 2000; // 2 seconds
 
+    // State to track search/input focus
+    let isFocused = false;
+
     // Function to show elements (Opacity 1)
     function showStickyElements() {
         stickyElements.forEach(el => {
@@ -31,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to fade elements (Opacity 0.25)
     function fadeStickyElements() {
-        // Only fade if NOT at the very top
-        if (window.scrollY > 10) {
+        // Only fade if NOT at the very top AND NOT focused
+        if (window.scrollY > 10 && !isFocused) {
             stickyElements.forEach(el => {
                 el.style.opacity = '0.25';
             });
@@ -43,19 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function wakeUp() {
         showStickyElements();
         clearTimeout(fadeTimeout);
-        // Reschedule fade
-        if (window.scrollY > 10) {
+        // Reschedule fade only if not focused
+        if (window.scrollY > 10 && !isFocused) {
             fadeTimeout = setTimeout(fadeStickyElements, idleTime);
         }
     }
-
-    // SCROLL wakes it up briefly? 
-    // User said "until you hover... or your on the very top".
-    // If I scroll, strictly speaking, I am not hovering. 
-    // But if I scroll to top, it stays. 
-    // Let's make scroll wake it up briefly so you see where you are, then fade?
-    // User aid "not anywhere on the website" implying scrolling elsewhere shouldn't keep it awake.
-    // I'll make scroll wake it, but interacting elsewhere (click/move) does NOT.
 
     window.addEventListener('scroll', () => {
         // Check top position
@@ -63,12 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
             showStickyElements(); // Always show at top
             clearTimeout(fadeTimeout);
         } else {
-            // If scrolling elsewhere, we might want to wake it briefly?
-            // "until you click or hover over it".
-            // If I don't wake it on scroll, it feels broken.
-            // I will NOT wake it on scroll (unless at top). 
-            // Just let it live in faded state until interaction.
-            fadeStickyElements();
+            // Check if we need to start fading (if we were previously at top)
+            if (!isFocused) {
+                clearTimeout(fadeTimeout); // Clear existing to debounce? Or just let it run?
+                // If we scroll down, we should eventually fade. 
+                // If we are already running a timeout, let it be. 
+                // If not, maybe we should start one? 
+                // Actually existing logic just checked scrollY in fadeStickyElements.
+                // Let's ensure we start the timer if we scrolled away from top.
+                if (!fadeTimeout) {
+                    fadeTimeout = setTimeout(fadeStickyElements, idleTime);
+                }
+            } else {
+                showStickyElements(); // Keep visible if focused/scrolling
+            }
         }
     }, { passive: true });
 
@@ -82,6 +85,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // When leaving, start timer
         el.addEventListener('mouseleave', () => {
+            if (window.scrollY > 10 && !isFocused) {
+                fadeTimeout = setTimeout(fadeStickyElements, idleTime);
+            }
+        });
+    });
+
+    // Detect Focus on Inputs (Search/Filters)
+    const inputs = document.querySelectorAll('.filters input, .filters select');
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            isFocused = true;
+            wakeUp(); // Wake up immediately and stay awake
+        });
+
+        input.addEventListener('blur', () => {
+            isFocused = false;
+            // Resume fading logic
             if (window.scrollY > 10) {
                 fadeTimeout = setTimeout(fadeStickyElements, idleTime);
             }
@@ -92,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.scrollY <= 10) {
         showStickyElements();
     } else {
-        // Start faded or fade soon?
         fadeTimeout = setTimeout(fadeStickyElements, idleTime);
     }
 });
