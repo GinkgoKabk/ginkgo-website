@@ -1,5 +1,5 @@
 /* style.css */
-html,
+/* html, */
 body {
   overflow-x: hidden;
 }
@@ -33,6 +33,10 @@ header {
   /* Vertically align items */
   justify-content: space-between;
   /* Distribute space between items */
+  position: sticky;
+  /* Make header sticky globally */
+  top: 0;
+  z-index: 10000;
   background-color: #ffffff;
   padding: 2px 2px;
   /* Add padding for spacing */
@@ -377,6 +381,12 @@ h3 {
   gap: 10px;
   align-items: center;
   padding: 10px;
+  position: sticky;
+  /* Make filters sticky globally */
+  top: 58px;
+  /* Approx header height */
+  z-index: 9000;
+  background-color: #ffffff;
   border: 2px dotted #2D3C25;
   color: #2D3C25;
   margin: 10px 0px 10px 0px;
