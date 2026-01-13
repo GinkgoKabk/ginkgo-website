@@ -1025,18 +1025,57 @@ footer {
     display: block;
   }
 
+  /* Mobile: Hide Tags label in filters */
+  .filter-label {
+    display: none !important;
+  }
+
+  /* Mobile: Vertical stack for project summary */
+  .project-summary {
+    grid-template-columns: 1fr auto !important;
+    /* Title takes space, Year takes what it needs */
+    grid-template-rows: auto auto auto;
+    /* Rows for Title, Artist, Area */
+    gap: 2px;
+  }
+
+  .project-summary h3 {
+    grid-column: 1;
+    grid-row: 1;
+    white-space: normal;
+    /* Allow title to wrap */
+  }
+
+  .project-summary .date {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+    align-self: start;
+    /* Align to top if title wraps */
+  }
+
+  .project-summary .artist {
+    grid-column: 1 / -1;
+    /* Full width */
+    grid-row: 2;
+  }
+
+  .project-summary .area {
+    grid-column: 1 / -1;
+    /* Full width */
+    grid-row: 3;
+  }
+
   /* Mobile: Hide tags in default view */
   .project-summary .tags {
     display: none;
   }
 
-  /* Mobile: Show tags in expanded view, on second line */
+  /* Mobile: Show tags in expanded view, on 4th line */
   .project-card.expanded .project-summary .tags {
     display: flex;
     grid-column: 1 / -1;
-    /* Span full width */
-    grid-row: 2;
-    /* Move to second row */
+    grid-row: 4;
     margin-top: 10px;
     padding-left: 0;
     justify-content: flex-start;
