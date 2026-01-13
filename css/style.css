@@ -1308,41 +1308,65 @@ footer {
   color: #2D3C25;
 }
 
+/* Gallery Overlay */
+.gallery-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.75);
+  /* Fades background content to approx 0.25 visibility */
+  z-index: 99999;
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: auto;
+}
+
+.gallery-overlay.visible {
+  opacity: 1;
+}
+
 .img-arrow {
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 30px;
+  /* Move to bottom */
+  top: auto;
+  /* unset top */
+  transform: none;
+  /* unset transform */
   font-size: 2.2rem;
   /* Smaller arrow */
   color: #EA9B3F;
   background: #2D3C25;
   /* Not transparent */
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  /* Slightly larger touch target */
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100001;
   cursor: pointer;
   user-select: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  transition: background 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: background 0.2s, transform 0.2s;
 }
 
 .img-arrow:hover {
   background: #EA9B3F;
   color: #2D3C25;
+  transform: scale(1.1);
 }
 
 .img-arrow-left {
-  left: 60px;
-  /* More margin from edge */
+  left: 30px;
 }
 
 .img-arrow-right {
-  right: 60px;
-  /* More margin from edge */
+  right: 30px;
 }
 
 body,

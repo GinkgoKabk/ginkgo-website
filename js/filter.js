@@ -84,6 +84,40 @@ function initializeProjectInteractions() {
   });
 }
 
+function createOverlay() {
+  if (document.querySelector('.gallery-overlay')) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'gallery-overlay';
+  document.body.appendChild(overlay);
+  // Force reflow
+  overlay.offsetHeight;
+  overlay.classList.add('visible');
+
+  // Click on overlay closes image
+  overlay.onclick = () => {
+    const expandedImg = imageGroup.querySelector('img.expanded');
+    if (expandedImg) {
+      expandedImg.classList.remove('expanded');
+      removeImageArrows();
+      removeOverlay();
+      document.removeEventListener('keydown', handleArrowNav);
+    }
+  };
+}
+
+function removeOverlay() {
+  const overlay = document.querySelector('.gallery-overlay');
+  if (overlay) {
+    overlay.classList.remove('visible');
+    setTimeout(() => {
+      if (overlay && overlay.parentNode) {
+        overlay.remove();
+      }
+    }, 300); // Wait for transition
+  }
+}
+
+
 function initializeImageInteractions(card) {
   const imageGroup = card.querySelector('.project-images');
   if (!imageGroup) return;
@@ -94,13 +128,20 @@ function initializeImageInteractions(card) {
       e.stopPropagation();
       if (img.classList.contains('expanded')) {
         img.classList.remove('expanded');
+        removeImageArrows();
+        removeOverlay();
         document.removeEventListener('keydown', handleArrowNav);
       } else {
         // Collapse any other expanded images
         document.querySelectorAll('.project-images img.expanded').forEach(expandedImg => {
           expandedImg.classList.remove('expanded');
         });
+        // Collapse any other overlays just in case (though one global is fine)
+        // actually we just reuse logic
+
         img.classList.add('expanded');
+        createOverlay(); // Add backdrop
+
         // Add navigation arrows
         showImageArrows(img, images);
         // Keyboard navigation
@@ -163,25 +204,29 @@ function initializeImageInteractions(card) {
     } else if (e.key === 'Escape') {
       images[idx].classList.remove('expanded');
       removeImageArrows();
+      removeOverlay();
       document.removeEventListener('keydown', handleArrowNav);
       e.preventDefault();
     }
   }
 
   // Remove arrows and key listener when clicking outside
+  // Note: overlay.onclick will handle most clicks outside.
+  // This listener on document might still be useful as fallback?
   document.addEventListener('click', (e) => {
     const expandedImg = imageGroup.querySelector('img.expanded');
-    if (expandedImg && !e.target.classList.contains('expanded')) {
-      expandedImg.classList.remove('expanded');
-      removeImageArrows();
-      document.removeEventListener('keydown', handleArrowNav);
-    }
-    setTimeout(() => {
-      if (!imageGroup.querySelector('img.expanded')) {
+    // If we clicked on overlay, that handler takes care.
+    // If we click on something else?
+
+    if (expandedImg && !e.target.classList.contains('expanded') && !e.target.classList.contains('img-arrow')) {
+      // Check if it was the overlay (handled elsewhere)
+      if (!e.target.classList.contains('gallery-overlay')) {
+        expandedImg.classList.remove('expanded');
         removeImageArrows();
+        removeOverlay();
         document.removeEventListener('keydown', handleArrowNav);
       }
-    }, 0);
+    }
   });
 }
 
