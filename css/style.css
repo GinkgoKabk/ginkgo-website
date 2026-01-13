@@ -384,7 +384,7 @@ h3 {
   padding: 10px;
   position: sticky;
   /* Make filters sticky globally */
-  top: 70px;
+  top: 95px;
   /* Increased offset from 58px */
   /* Approx header height */
   z-index: 9000;
@@ -392,6 +392,8 @@ h3 {
   border: 2px dotted #2D3C25;
   color: #2D3C25;
   margin: 10px 0px 10px 0px;
+  transition: opacity 0.5s ease;
+  /* Smooth fade transition */
 }
 
 .filters input,
