@@ -314,6 +314,8 @@ h3 {
   text-decoration: underline;
   font-size: 14px;
   font-weight: normal;
+  word-break: break-all;
+  /* Ensure long URLs don't break layout */
 }
 
 .project-card.expanded .artist-url-hidden {
@@ -478,7 +480,8 @@ h3 {
   white-space: nowrap;
 }
 
-.project-summary:hover .tag-pill {
+.project-summary:hover .tag-pill,
+.project-card.expanded .tag-pill {
   border-color: #EA9B3F;
   color: #EA9B3F;
 }

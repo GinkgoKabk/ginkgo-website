@@ -115,7 +115,7 @@ async function fetchProjects() {
                     <p class="date">${year}</p>
                     <p class="artist">
                         ${artist}
-                        ${artistUrl && artistUrl !== '#' ? `<a href="${artistUrl}" target="_blank" rel="noopener noreferrer" class="artist-url-hidden">Link</a>` : ''}
+                        ${artistUrl && artistUrl !== '#' ? `<a href="${artistUrl}" target="_blank" rel="noopener noreferrer" class="artist-url-hidden">${artistUrl}</a>` : ''}
                     </p>
                     <p class="area">${area}</p>
                     <p class="tags">
