@@ -39,7 +39,7 @@ header {
   transition: all 0.3s ease;
   text-decoration: none;
   border: 2px dotted #2D3C25;
-  margin: 30px 30px 3px 30px;
+  /* margin: 30px 30px 3px 30px; */
 
 
 }
@@ -65,7 +65,7 @@ header nav {
   margin-left: auto;
   /* Pushes the nav to the right */
   cursor: pointer;
-  padding: 10px;
+  padding: 10px 20px 10px 10px;
   text-align: center;
 
 }
@@ -96,7 +96,6 @@ h3 {
   grid-template-columns: 1fr;
   position: relative;
   /* Add padding if needed for ant space */
-  margin: 10px 30px 3px 30px;
   border: 2px dotted #2D3C25;
   /* Optional: Add a border */
 }
@@ -282,8 +281,7 @@ h3 {
   flex-wrap: wrap;
   /* Allow wrapping if there are many images */
   gap: 15px;
-  /* Add spacing between images */
-  padding: 10px;
+
   justify-content: flex-start;
   /* Align to the left */
   align-items: center;
@@ -343,11 +341,6 @@ h3 {
   }
 }
 
-
-
-
-
-/* Filter Section */
 /* Filter Section */
 .filters {
   display: grid;
@@ -358,7 +351,7 @@ h3 {
   padding: 10px;
   border: 2px dotted #2D3C25;
   color: #2D3C25;
-  margin: 10px 30px 3px 30px;
+  margin: 10px 0px 10px 0px;
 }
 
 .filters input,
@@ -425,12 +418,16 @@ h3 {
 
 .project-summary .artist {
   grid-column: 2;
+  grid-row: 1;
+  /* Ensure it stays on line 1 */
   font-size: 16px;
   color: #2D3C25;
 }
 
 .project-summary .area {
   grid-column: 3;
+  grid-row: 1;
+  /* Ensure it stays on line 1 */
   font-size: 16px;
   color: #2D3C25;
 }
@@ -446,7 +443,8 @@ h3 {
 
 .project-summary .date {
   grid-column: 5;
-  /* Year moved to the end */
+  grid-row: 1;
+  /* Ensure it stays on line 1 */
   font-size: 16px;
   color: #2D3C25;
   text-align: right;
@@ -479,14 +477,14 @@ h3 {
 }
 
 .ginkgo-logo {
-  height: 70px;
+  height: 50px;
   max-width: 260px;
-  margin-left: 10px;
+  margin: 10px 0 10px 10px;
 }
 
 @media (max-width: 1200px) {
   .ginkgo-logo {
-    height: 70px;
+    height: 50px;
     max-width: 180px;
   }
 
