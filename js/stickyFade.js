@@ -57,20 +57,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.scrollY <= 10) {
             showStickyElements(); // Always show at top
             clearTimeout(fadeTimeout);
+            fadeTimeout = null; // Reset ID
         } else {
-            // Check if we need to start fading (if we were previously at top)
             if (!isFocused) {
-                clearTimeout(fadeTimeout); // Clear existing to debounce? Or just let it run?
-                // If we scroll down, we should eventually fade. 
-                // If we are already running a timeout, let it be. 
-                // If not, maybe we should start one? 
-                // Actually existing logic just checked scrollY in fadeStickyElements.
-                // Let's ensure we start the timer if we scrolled away from top.
-                if (!fadeTimeout) {
-                    fadeTimeout = setTimeout(fadeStickyElements, idleTime);
-                }
+                // Debounce logic: clear previous timer and set new one
+                clearTimeout(fadeTimeout);
+                // If we are scrolling, we technically are "active"? 
+                // Use case: user scrolls -> active -> stop scroll -> wait 2s -> fade.
+                // So:
+                showStickyElements(); // Ensure visible while scrolling
+                fadeTimeout = setTimeout(fadeStickyElements, idleTime);
             } else {
-                showStickyElements(); // Keep visible if focused/scrolling
+                showStickyElements(); // Keep visible if focused
+                clearTimeout(fadeTimeout); // Ensure no random fade happens
             }
         }
     }, { passive: true });
