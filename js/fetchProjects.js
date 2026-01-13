@@ -37,7 +37,9 @@ async function fetchProjects() {
             const title = attributes.title || attributes.Title || 'Untitled Project';
             const year = attributes.year || attributes.Year || '';
             const artist = attributes.artist || attributes.Artist || 'Unknown Artist';
-            const artistUrl = attributes.artistUrl || attributes.ArtistUrl || '#';
+            /* Debugging ArtistURL: Check all possible cases */
+            console.log('Project Attributes:', attributes);
+            const artistUrl = attributes.artistUrl || attributes.ArtistUrl || attributes.ArtistURL || attributes.artistURL || '#';
             const area = attributes.area || attributes.Area || 'General';
             const tags = attributes.tags || attributes.Tags || ''; // Expecting format like "+solar +water"
             const summary = attributes.summary || attributes.Summary || '';
@@ -112,7 +114,8 @@ async function fetchProjects() {
                     <h3>${title}</h3>
                     <p class="date">${year}</p>
                     <p class="artist">
-                        ${artistUrl && artistUrl !== '#' ? `<a href="${artistUrl}" target="_blank" rel="noopener noreferrer">${artist}</a>` : artist}
+                        ${artist}
+                        ${artistUrl && artistUrl !== '#' ? `<a href="${artistUrl}" target="_blank" rel="noopener noreferrer" class="artist-url-hidden">Link</a>` : ''}
                     </p>
                     <p class="area">${area}</p>
                     <p class="tags">

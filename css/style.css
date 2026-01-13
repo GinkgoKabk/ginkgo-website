@@ -306,6 +306,24 @@ h3 {
   /* REMOVED shadow as requested */
 }
 
+/* Artist Link (Hidden in Preview, Visible in Expanded) */
+.artist-url-hidden {
+  display: none;
+  margin-top: 4px;
+  color: #EA9B3F;
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.project-card.expanded .artist-url-hidden {
+  display: block;
+}
+
+.artist-url-hidden:hover {
+  color: #fff !important;
+}
+
 /* Enlarged image style for desktop */
 /* Enlarged image style for desktop */
 .project-images img.expanded {
