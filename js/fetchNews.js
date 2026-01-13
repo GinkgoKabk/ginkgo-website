@@ -70,30 +70,29 @@ async function fetchNews() {
                 }
             }
 
-            // Create Article Element
-            const article = document.createElement('article');
-            article.classList.add('news-article');
-
-            // Add click event for expanding image (replicating original behavior)
-            // Note: The original generic toggleNewsImage function might not strictly be needed if we add the listener here directly
-            article.addEventListener('click', () => {
-                article.classList.toggle('show-image');
-            });
+            // Create Card Container
+            const card = document.createElement('div');
+            card.classList.add('news-card'); // New class for list style
 
             // Construct HTML
+            // Summary Row: Title + Date
+            // Details: Image + Content
+
             let imageHtml = '';
             if (imgUrl) {
-                imageHtml = `<img class="news-image" src="${imgUrl}" alt="${title} Photo">`;
+                // Determine if we want gallery behavior or just a single image
+                // consistently with projects, let's wrap in project-images class if we want consistent styling
+                imageHtml = `
+                    <div class="project-images">
+                        <img src="${imgUrl}" alt="${title} Photo">
+                    </div>`;
             }
 
             // Render Content
-            // Check if content is Strapi Blocks (Array) or Markdown (String)
             let renderedContent = '';
             if (Array.isArray(content)) {
                 renderedContent = renderStrapiBlocks(content);
             } else if (typeof content === 'string') {
-                // If it's a string, assuming Markdown
-                // specific check if marked is available to avoid crash
                 if (typeof marked !== 'undefined') {
                     renderedContent = marked.parse(content);
                 } else {
@@ -101,23 +100,39 @@ async function fetchNews() {
                 }
             }
 
-            article.innerHTML = `
-                ${imageHtml}
-                <div class="news-content">
+            card.innerHTML = `
+                <div class="news-summary">
                     <h3>${title}</h3>
-                    ${formattedDate ? `<p><strong>Published:</strong> ${formattedDate}</p>` : ''}
-                    <div class="news-text">${renderedContent}</div> 
+                    <p class="date">${formattedDate}</p>
+                    <p class="news-label">News</p> <!-- Optional label to match 3-col structure? -->
+                </div>
+                <div class="news-details">
+                    <div class="description-content">${renderedContent}</div>
+                    ${imageHtml}
                 </div>
             `;
-            // Note: using marked.parse assuming we might want markdown support, 
-            // but for now let's stick to simple text if they use Rich Text field which often returns markdown.
-            // If they use standard text, we might just put it in a p tag.
-            // Let's adjust to be safe: if content is simple text, just display it. 
-            // Strapi Rich Text is usually Markdown. We need a markdown parser. 
-            // As I don't want to add a heavy dependency right now without asking, 
-            // I'll assume standard text or basic HTML rendering for now, or just text.
 
-            newsContainer.appendChild(article);
+            // Add Click Event to Toggle Expansion
+            card.addEventListener('click', function () {
+                // Close other open news cards
+                document.querySelectorAll('.news-card.expanded').forEach(c => {
+                    if (c !== card) c.classList.remove('expanded');
+                });
+
+                const willExpand = !card.classList.contains('expanded');
+                card.classList.toggle('expanded');
+
+                // Smooth Scroll to card if expanding
+                if (willExpand) {
+                    const headerOffset = 100; // Account for sticky header
+                    const cardTop = card.getBoundingClientRect().top + window.pageYOffset;
+                    setTimeout(() => {
+                        window.scrollTo({ top: cardTop - headerOffset, behavior: 'smooth' });
+                    }, 10);
+                }
+            });
+
+            newsContainer.appendChild(card);
         });
 
     } catch (error) {
