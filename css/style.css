@@ -929,7 +929,7 @@ footer {
   /* Sticky Filters (Mobile) - Stack below header */
   .filters {
     position: sticky;
-    top: 70px;
+    top: 100px;
     /* Header top (10) + Height (~60) */
     z-index: 9000;
     background: #ffffff;
