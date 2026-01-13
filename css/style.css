@@ -35,7 +35,8 @@ header {
   /* Distribute space between items */
   position: sticky;
   /* Make header sticky globally */
-  top: 0;
+  top: 10px;
+  /* Changed from 0 to 10px */
   z-index: 10000;
   background-color: #ffffff;
   padding: 2px 2px;
@@ -44,9 +45,8 @@ header {
   text-decoration: none;
   border: 2px dotted #2D3C25;
   /* margin: 30px 30px 3px 30px; */
-
-
 }
+
 
 header p {
   margin: 0;
@@ -373,6 +373,7 @@ h3 {
   }
 }
 
+
 /* Filter Section */
 .filters {
   display: grid;
@@ -383,7 +384,8 @@ h3 {
   padding: 10px;
   position: sticky;
   /* Make filters sticky globally */
-  top: 58px;
+  top: 70px;
+  /* Increased offset from 58px */
   /* Approx header height */
   z-index: 9000;
   background-color: #ffffff;
@@ -909,30 +911,31 @@ footer {
   }
 
   /* Sticky Header */
+  /* Sticky Header (Mobile) */
   header {
     position: sticky;
-    top: 0;
+    top: 10px;
+    /* Leave gap at top */
     z-index: 10000;
     background: #ffffff;
-    margin: 0 !important;
-    /* Remove margins for flush sticky */
+    margin: 8px 4px 2px 4px !important;
+    /* Restore default margins */
     padding: 8px 10px;
-    /* Add internal padding */
     border-bottom: 2px dotted #2D3C25;
-    width: 100%;
+    width: auto;
     box-sizing: border-box;
   }
 
-  /* Sticky Filters (Stacked below header) */
+  /* Sticky Filters (Mobile) - Stack below header */
   .filters {
     position: sticky;
-    top: 60px;
-    /* Approx header height (40px logo + 16px padding + borders) */
+    top: 70px;
+    /* Header top (10) + Height (~60) */
     z-index: 9000;
     background: #ffffff;
-    margin: 0 !important;
+    margin: 4px 4px 2px 4px !important;
+    /* Restore margins */
     border-top: none;
-    /* Merged visually with header */
     border-left: none;
     border-right: none;
     border-bottom: 2px dotted #2D3C25;
