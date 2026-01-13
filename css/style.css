@@ -320,6 +320,8 @@ h3 {
 
 .project-card.expanded .artist-url-hidden {
   display: block;
+  color: #EA9B3F !important;
+  /* Force visibility against dark background */
 }
 
 .artist-url-hidden:hover {
