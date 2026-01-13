@@ -13,7 +13,7 @@ async function fetchProjects() {
     try {
         // Fetch projects from Strapi
         // We assume the content type is 'projects' and we want to populate 'Banners' (images)
-        const response = await fetch(`${CONFIG.API_URL}/api/projects?populate=*`);
+        const response = await fetch(`${CONFIG.API_URL}/api/projects?populate=*&sort=createdAt:desc`);
 
         if (!response.ok) {
             throw new Error(`API Error: ${response.status}`);

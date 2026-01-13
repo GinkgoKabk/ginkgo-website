@@ -13,7 +13,7 @@ async function fetchNews() {
     try {
         // Fetch news items from Strapi
         // Collection type: 'news-item' -> API endpoint: 'api/news-items'
-        const response = await fetch(`${CONFIG.API_URL}/api/news-items?populate=*&sort=publishedDate:desc`);
+        const response = await fetch(`${CONFIG.API_URL}/api/news-items?populate=*&sort=createdAt:desc`);
 
         if (!response.ok) {
             throw new Error(`API Error: ${response.status}`);
