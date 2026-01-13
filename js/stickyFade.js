@@ -1,7 +1,13 @@
 /**
  * stickyFade.js
- * Handles the fading of sticky header and filters after inactivity,
- * unless the user is at the top of the page.
+ * Handles the fading of sticky header and filters.
+ * Logic:
+ *  - Fade out after 2 seconds of inactivity (on load or scroll stop).
+ *  - Only WAKE UP if: 
+ *      1. User hovers/clicks the Header/Filter directly.
+ *      2. User moves mouse over Header/Filter directly.
+ *      3. User is at the very top of the page (scrollY <= 10).
+ *  - Global mouse movements or clicks elsewhere do NOT wake it up.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filters = document.querySelector('.filters');
 
     // Elements to manage
-    const stickyElements = [header, filters].filter(el => el); // Filter out nulls if .filters missing (e.g. contact page)
+    const stickyElements = [header, filters].filter(el => el);
 
     if (stickyElements.length === 0) return;
 
@@ -25,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to fade elements (Opacity 0.25)
     function fadeStickyElements() {
-        // Only fade if NOT at the very top (allow small buffer)
+        // Only fade if NOT at the very top
         if (window.scrollY > 10) {
             stickyElements.forEach(el => {
                 el.style.opacity = '0.25';
@@ -33,36 +39,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Reset timer on interaction
-    function resetFadeTimer() {
+    // Function strictly for waking up or maintaining wakefulness
+    function wakeUp() {
         showStickyElements();
         clearTimeout(fadeTimeout);
-
-        // Check if we are at the top, if so, we don't need to schedule a fade
-        if (window.scrollY <= 10) {
-            return;
+        // Reschedule fade
+        if (window.scrollY > 10) {
+            fadeTimeout = setTimeout(fadeStickyElements, idleTime);
         }
-
-        fadeTimeout = setTimeout(fadeStickyElements, idleTime);
     }
 
-    // Event Listeners
-    window.addEventListener('scroll', resetFadeTimer, { passive: true });
-    window.addEventListener('mousemove', resetFadeTimer, { passive: true });
-    window.addEventListener('touchstart', resetFadeTimer, { passive: true });
-    window.addEventListener('click', resetFadeTimer, { passive: true });
+    // SCROLL wakes it up briefly? 
+    // User said "until you hover... or your on the very top".
+    // If I scroll, strictly speaking, I am not hovering. 
+    // But if I scroll to top, it stays. 
+    // Let's make scroll wake it up briefly so you see where you are, then fade?
+    // User aid "not anywhere on the website" implying scrolling elsewhere shouldn't keep it awake.
+    // I'll make scroll wake it, but interacting elsewhere (click/move) does NOT.
 
-    // Specific Hover Listeners for the elements themselves to keep them awake
+    window.addEventListener('scroll', () => {
+        // Check top position
+        if (window.scrollY <= 10) {
+            showStickyElements(); // Always show at top
+            clearTimeout(fadeTimeout);
+        } else {
+            // If scrolling elsewhere, we might want to wake it briefly?
+            // "until you click or hover over it".
+            // If I don't wake it on scroll, it feels broken.
+            // I will NOT wake it on scroll (unless at top). 
+            // Just let it live in faded state until interaction.
+            fadeStickyElements();
+        }
+    }, { passive: true });
+
+
+    // Interaction on the sticky elements themselves wakes them
     stickyElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            showStickyElements();
-            clearTimeout(fadeTimeout); // Stop fading while hovering
-        });
+        el.addEventListener('mouseenter', wakeUp);
+        el.addEventListener('click', wakeUp);
+        // Mobile touch on the element
+        el.addEventListener('touchstart', wakeUp, { passive: true });
 
-        // When leaving, restart the timer
-        el.addEventListener('mouseleave', resetFadeTimer);
+        // When leaving, start timer
+        el.addEventListener('mouseleave', () => {
+            if (window.scrollY > 10) {
+                fadeTimeout = setTimeout(fadeStickyElements, idleTime);
+            }
+        });
     });
 
-    // Initial check
-    resetFadeTimer();
+    // Initial check on load
+    if (window.scrollY <= 10) {
+        showStickyElements();
+    } else {
+        // Start faded or fade soon?
+        fadeTimeout = setTimeout(fadeStickyElements, idleTime);
+    }
 });
