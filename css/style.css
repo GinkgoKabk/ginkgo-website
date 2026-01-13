@@ -193,7 +193,7 @@ h3 {
 .project-summary .date {
   grid-column: 1;
   /* Start the date in the same column as the h3 */
-  font-size: 16px;
+  font-size: 14px;
   color: #2D3C25;
 
 }
@@ -1384,13 +1384,16 @@ body,
 
 /* Expanded State */
 .news-card.expanded {
-  background-color: #2D3C25;
-  color: #EA9B3F;
+  background-color: transparent;
+  /* Keep transparent/white */
+  color: #2D3C25;
+  /* Keep dark text */
 }
 
 .news-card.expanded h3,
 .news-card.expanded .date {
-  color: #EA9B3F !important;
+  color: #2D3C25 !important;
+  /* Keep dark text */
 }
 
 /* Summary Row Layout - Centered Vertical */
@@ -1424,10 +1427,10 @@ body,
 
 /* Image in Summary */
 .news-image-preview {
-  width: 100%;
+  width: 50%;
   display: flex;
   justify-content: center;
-  margin: 10px 0;
+  margin: 15px 0;
 }
 
 .news-image-preview img {
@@ -1444,7 +1447,7 @@ body,
   display: block;
   font-family: Georgia, serif;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.2;
   color: #2D3C25;
 
   /* 3-4 lines fade out */
@@ -1475,6 +1478,13 @@ body,
 
 /* Mobile Adjustments */
 @media (max-width: 600px) {
+  .news-list {
+    margin: 20px 4px 0 4px !important;
+    /* Match header side margins */
+    width: auto !important;
+    /* Allow margins to work */
+  }
+
   .news-card {
     padding: 16px;
     /* Slightly less padding on mobile */
@@ -1495,7 +1505,7 @@ body,
     font-size: 14px;
     display: block;
     width: 100%;
-    text-align: left;
+    text-align: center;
     margin-bottom: 8px;
     /* Move date below title on mobile */
   }
