@@ -59,17 +59,20 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(fadeTimeout);
             fadeTimeout = null; // Reset ID
         } else {
+            // If scrolled down
             if (!isFocused) {
-                // Debounce logic: clear previous timer and set new one
-                clearTimeout(fadeTimeout);
-                // If we are scrolling, we technically are "active"? 
-                // Use case: user scrolls -> active -> stop scroll -> wait 2s -> fade.
-                // So:
-                showStickyElements(); // Ensure visible while scrolling
-                fadeTimeout = setTimeout(fadeStickyElements, idleTime);
+                // Do NOT wake up on scroll.
+                // Only ensure we fade if we are currently visible (e.g. just left top or recently hovered)
+                const isVisible = stickyElements[0].style.opacity === '1';
+
+                if (isVisible && !fadeTimeout) {
+                    // We just left the top or became idle, start the countdown
+                    fadeTimeout = setTimeout(fadeStickyElements, idleTime);
+                }
+                // If not visible, do nothing. Scrolling stays faded.
             } else {
                 showStickyElements(); // Keep visible if focused
-                clearTimeout(fadeTimeout); // Ensure no random fade happens
+                clearTimeout(fadeTimeout);
             }
         }
     }, { passive: true });
