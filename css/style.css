@@ -1340,16 +1340,19 @@ body,
 .contact-form p {
   color: #2D3C25 !important;
 }
-/* News Page - List Layout Refactor */
+
+/* News Page - Refined List Layout */
 
 /* Container overrides */
 .news-list {
   display: block;
   width: 100%;
   max-width: 100%;
-  margin: 0 auto;
-  padding: 0 4px;
+  margin: 20px auto 0 auto;
+  padding: 0;
   box-sizing: border-box;
+  border: 2px dotted #2D3C25;
+  /* Dotted outline for the whole list */
 }
 
 /* Base Card Style */
@@ -1357,70 +1360,104 @@ body,
   width: 100%;
   border-bottom: 2px dotted #2D3C25;
   box-sizing: border-box;
-  padding: 0;
+  padding: 24px;
+  /* Bigger cards */
   margin: 0;
   cursor: pointer;
   background-color: transparent;
   transition: all 0.3s ease;
 }
 
+.news-card:last-child {
+  border-bottom: none;
+}
+
 .news-card:hover {
   background-color: #EA9B3F;
 }
 
-.news-card:hover .news-summary h3,
-.news-card:hover .news-summary p {
-  color: #2D3C25;
+.news-card:hover h3,
+.news-card:hover .date,
+.news-card:hover .news-preview {
+  color: #2D3C25 !important;
 }
 
 /* Expanded State */
 .news-card.expanded {
   background-color: #2D3C25;
   color: #EA9B3F;
-  margin-bottom: 30px; 
-  padding-bottom: 20px;
 }
 
-.news-card.expanded .news-summary h3,
-.news-card.expanded .news-summary p {
-  color: #EA9B3F;
+.news-card.expanded h3,
+.news-card.expanded .date {
+  color: #EA9B3F !important;
 }
 
 /* Summary Row Layout */
 .news-summary {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  align-items: baseline;
-  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.news-summary h3 {
+.news-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+}
+
+.news-header-row h3 {
   font-family: Georgia, serif;
   font-size: 20px;
   margin: 0;
   font-weight: normal;
   color: #2D3C25;
+  flex: 1;
+  padding-right: 15px;
 }
 
-.news-summary .date {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 16px;
-  color: #2D3C25;
-}
-
-.news-summary .news-label {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 16px;
-  color: #2D3C25;
+.news-header-row .meta-group {
   text-align: right;
-  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.date {
+  font-family: Georgia, serif;
+  /* Standard typeface */
+  font-size: 16px;
+  color: #2D3C25;
+  font-style: italic;
+}
+
+/* Preview Text */
+.news-preview {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #2D3C25;
+
+  /* 3-4 lines fade out */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  /* Fade out */
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+.news-card.expanded .news-preview {
+  display: none;
+  /* Hide preview when expanded */
 }
 
 /* Hidden Details */
 .news-details {
   display: none;
-  padding: 20px 0;
+  padding-top: 20px;
 }
 
 .news-card.expanded .news-details {
@@ -1429,23 +1466,33 @@ body,
 
 /* Mobile Adjustments */
 @media (max-width: 600px) {
-  .news-summary {
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
+  .news-card {
+    padding: 16px;
+    /* Slightly less padding on mobile */
   }
 
-  .news-summary h3 {
-    grid-column: 1 / -1;
-    font-size: 17px;
+  .news-header-row {
+    flex-direction: column;
+    /* Stack title and date on mobile? Or keep side-by-side? User wanted "bigger". Side by side might cramp title. */
+    /* Let's keep side-by-side but allow wrapping if title long */
   }
 
-  .news-summary .date {
-    grid-column: 1;
-    font-size: 15px;
+  .news-header-row h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
   }
-  
-  .news-summary .news-label {
-    grid-column: 2;
-    font-size: 15px;
+
+  .date {
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 8px;
+    /* Move date below title on mobile */
+  }
+
+  /* Actually, let's flex-direction column the header row on mobile for better space */
+  .news-header-row {
+    flex-direction: column;
   }
 }
