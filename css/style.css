@@ -977,6 +977,25 @@ footer {
     border-right: none;
   }
 
+  /* Reset grid columns for mobile 4-column layout */
+  #tag-search {
+    grid-column: 1;
+  }
+
+  #artist-filter {
+    grid-column: 2;
+  }
+
+  #area-filter {
+    grid-column: 3;
+  }
+
+  #date-filter {
+    grid-column: 4;
+  }
+
+  /* Move Date from 5 to 4 */
+
 
   .form-submission {
     margin: 4px 4px 2px 4px !important;
