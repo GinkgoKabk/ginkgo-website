@@ -104,11 +104,23 @@ async function fetchNews() {
                 <div class="news-summary">
                     <h3>${title}</h3>
                     <p class="date">${formattedDate}</p>
-                    <p class="news-label">News</p> <!-- Optional label to match 3-col structure? -->
+                    
+                    ${imgUrl ? `
+                    <div class="news-image-preview">
+                        <img src="${imgUrl}" alt="${title}">
+                    </div>` : ''}
+
+                    <div class="news-preview">
+                        ${renderedContent}
+                    </div>
                 </div>
                 <div class="news-details">
                     <div class="description-content">${renderedContent}</div>
-                    ${imageHtml}
+                    <!-- Image already shown in summary, do we hide it here or keep it? 
+                         User said "if you open the news articel the entire text shows". 
+                         Usually best to keep image visible. 
+                         If image is in summary, it stays visible. 
+                         So we don't need it duplicated in details. -->
                 </div>
             `;
 
