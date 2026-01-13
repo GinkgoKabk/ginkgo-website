@@ -46,9 +46,6 @@ function filterProjects() {
 
 // Function to toggle the expansion of project details
 // Only one project card can be expanded at a time
-
-// Function to toggle the expansion of project details
-// Only one project card can be expanded at a time
 function initializeProjectInteractions() {
   document.querySelectorAll('.project-card').forEach(card => {
     // Remove existing listeners to prevent duplicates if re-initialized
@@ -225,6 +222,3 @@ function initializeImageInteractions(card) {
     });
   });
 }
-
-// Previously this ran on load, now we expose it.
-// document.addEventListener('DOMContentLoaded', initializeProjectInteractions);

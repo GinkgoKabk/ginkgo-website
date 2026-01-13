@@ -37,8 +37,7 @@ async function fetchProjects() {
             const title = attributes.title || attributes.Title || 'Untitled Project';
             const year = attributes.year || attributes.Year || '';
             const artist = attributes.artist || attributes.Artist || 'Unknown Artist';
-            /* Debugging ArtistURL: Check all possible cases */
-            console.log('Project Attributes:', attributes);
+
             const artistUrl = attributes.artistUrl || attributes.ArtistUrl || attributes.ArtistURL || attributes.artistURL || '#';
             const area = attributes.area || attributes.Area || 'General';
             const tags = attributes.tags || attributes.Tags || ''; // Expecting format like "+solar +water"
@@ -69,10 +68,6 @@ async function fetchProjects() {
             card.classList.add('project-card');
 
             // Add data attributes for filtering
-            // remove '+' and create comma separated list for compatibility if needed, 
-            // but the current filter.js likely reads these raw attributes.
-            // Let's inspect how the filter.js works (it likely parses text content or data attributes).
-            // The HTML had explicit data attributes: data-tags, data-artist, data-area, data-date.
 
             // Clean tags for data attribute if they are stored as space separated "+tag"
             const rawTags = tags.replace(/\+/g, '').replace(/\s+/g, ', ').trim();

@@ -44,7 +44,6 @@ header {
   transition: all 0.3s ease;
   text-decoration: none;
   border: 2px dotted #2D3C25;
-  /* margin: 30px 30px 3px 30px; */
 }
 
 
@@ -273,8 +272,6 @@ h3 {
 
 .project-card.expanded .project-details {
   display: block;
-  /* animation: expand 0.3s ease-in-out; */
-  /* REMOVED animation */
 }
 
 .description-content p,
@@ -284,7 +281,6 @@ h3 {
   line-height: 1.4;
 }
 
-/* Add images' style for the expanded section */
 /* Add images' style for the expanded section */
 .project-images {
   display: flex;
@@ -312,9 +308,7 @@ h3 {
   background-color: transparent;
   /* Remove any white bg if PNG */
   border: none;
-  /* REMOVED border as requested */
   box-shadow: none;
-  /* REMOVED shadow as requested */
 }
 
 /* Artist Link (Hidden in Preview, Visible in Expanded) */
@@ -341,7 +335,6 @@ h3 {
 }
 
 /* Enlarged image style for desktop */
-/* Enlarged image style for desktop */
 .project-images img.expanded {
   position: fixed;
   top: 50%;
@@ -354,12 +347,10 @@ h3 {
   transform: translate(-50%, -50%) scale(1.1);
   /* Kept scale for centering logic, but removing transition makes it instant */
   box-shadow: none;
-  /* Removed shadow */
   border-radius: 0;
   background: transparent;
   /* Removed white BG */
   transition: none;
-  /* REMOVED animation */
   cursor: zoom-out;
 }
 

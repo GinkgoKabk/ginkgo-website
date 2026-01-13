@@ -26,16 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // State to track search/input focus
     let isFocused = false;
 
-    // Function to show elements (Opacity 1)
     function showStickyElements() {
         stickyElements.forEach(el => {
             el.style.opacity = '1';
         });
     }
 
-    // Function to fade elements (Opacity 0.25)
     function fadeStickyElements() {
-        // Only fade if NOT at the very top AND NOT focused
         if (window.scrollY > 10 && !isFocused) {
             stickyElements.forEach(el => {
                 el.style.opacity = '0.25';
@@ -43,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function strictly for waking up or maintaining wakefulness
     function wakeUp() {
         showStickyElements();
         clearTimeout(fadeTimeout);
@@ -68,18 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearTimeout(fadeTimeout);
             }
             else {
-                // Detect Scroll Direction
-                // If scrolling UP (current < last), show header (Wake Up)
-                // We add a small threshold to avoid jitter? maybe not needed.
                 if (currentScrollY < lastScrollY) {
-                    // Scrolled UP -> Show
                     showStickyElements();
                     clearTimeout(fadeTimeout);
-                    // Start timer so it fades again if they stop scrolling up
                     fadeTimeout = setTimeout(fadeStickyElements, idleTime);
                 } else {
-                    // Scrolled DOWN -> Fade (or ensure timer is running)
-                    // If visible, start timer to fade
                     const isVisible = stickyElements[0].style.opacity === '1';
                     if (isVisible && !fadeTimeout) {
                         fadeTimeout = setTimeout(fadeStickyElements, idleTime);
