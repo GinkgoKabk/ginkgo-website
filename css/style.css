@@ -131,7 +131,13 @@ h3 {
   transition: all 0.3s ease;
   margin-top: 2px;
   transition: background 0.5s, color 0.2s;
+  border-bottom: 2px dotted #2D3C25;
+  /* Add separator line */
+}
 
+.project-card:last-child {
+  border-bottom: none;
+  /* Remove separator for the last card */
 }
 
 .project-card:hover,
