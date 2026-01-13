@@ -194,6 +194,7 @@ h3 {
   grid-column: 1;
   /* Start the date in the same column as the h3 */
   font-size: 14px;
+  letter-spacing: .025em;
   color: #2D3C25;
 
 }
@@ -323,6 +324,7 @@ h3 {
   color: #EA9B3F;
   text-decoration: underline;
   font-size: 14px;
+  letter-spacing: .025em;
   font-weight: normal;
   word-break: break-all;
   /* Ensure long URLs don't break layout */
@@ -472,6 +474,7 @@ h3 {
   text-align: left;
   color: #2D3C25;
   font-size: 14px;
+  letter-spacing: .025em;
 
   /* Fade out effect for collapsed state */
   white-space: nowrap;
@@ -489,6 +492,7 @@ h3 {
   padding: 1px 8px;
   margin-right: 4px;
   font-size: 12px;
+  letter-spacing: .025em;
   line-height: 1.4;
   white-space: nowrap;
 }
@@ -585,6 +589,7 @@ h3 {
   header nav a,
   header p {
     font-size: 12px;
+    letter-spacing: .025em;
   }
 }
 
@@ -889,13 +894,15 @@ footer {
   }
 
   header nav a {
-    font-size: 14px;
-    padding: 1px 0;
+    font-size: 18px;
+    padding: 0px 0;
+    letter-spacing: -.02em;
   }
 
   .ginkgo-logo {
     height: 40px;
-    padding: 4px;
+    padding: 2px;
+    padding-top: 8px;
     margin-left: 2px;
   }
 
@@ -968,10 +975,12 @@ footer {
     margin: 2px 0 2px 0;
     padding: 1px 4px;
     font-size: 12px;
+    letter-spacing: .025em;
   }
 
   #popup-btn {
     font-size: 12px;
+    letter-spacing: .025em;
     padding: 2px 6px;
     margin-left: 5px !important;
     margin-right: 5px !important;
@@ -1000,6 +1009,7 @@ footer {
     height: 100%;
     /* Fill height */
     font-size: 14px;
+    letter-spacing: .025em;
     /* Match mobile nav size */
     font-family: Georgia, serif;
     /* Match site typeface */
@@ -1208,6 +1218,7 @@ footer {
   border: 1px dotted #2D3C25;
   padding: 4px;
   font-size: 14px;
+  letter-spacing: .025em;
   color: #2D3C25;
   background: #fff;
   border-radius: 0px;
@@ -1263,6 +1274,7 @@ footer {
   border: 1px dotted #2D3C25;
   padding: 4px;
   font-size: 14px;
+  letter-spacing: .025em;
   color: #2D3C25;
   background: #fff;
   border-radius: 0px;
@@ -1503,6 +1515,7 @@ body,
 
   .date {
     font-size: 14px;
+    letter-spacing: .025em;
     display: block;
     width: 100%;
     text-align: center;
@@ -1515,6 +1528,7 @@ body,
     flex-direction: column;
   }
 }
+
 /* Fixed Controls (Page Info & Ant Toggle) */
 .fixed-controls {
   position: fixed;
@@ -1532,11 +1546,13 @@ body,
   border: 2px dotted #EA9B3F;
   font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
+  letter-spacing: .025em;
   padding: 8px 12px;
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.3s ease;
-  width: 120px; /* Fixed width for alignment */
+  width: 120px;
+  /* Fixed width for alignment */
   text-align: center;
 }
 
@@ -1547,7 +1563,8 @@ body,
 
 /* Override existing #popup-btn styles if any specific ones exist */
 #popup-btn {
-  margin: 0 !important; /* Remove legacy margins */
+  margin: 0 !important;
+  /* Remove legacy margins */
 }
 
 /* Mobile Alignment for Controls */
@@ -1556,10 +1573,11 @@ body,
     bottom: 15px;
     left: 10px;
   }
-  
+
   .fixed-controls button {
-     font-size: 12px;
-     width: 100px;
-     padding: 6px 10px;
+    font-size: 12px;
+    letter-spacing: .025em;
+    width: 100px;
+    padding: 6px 10px;
   }
 }
