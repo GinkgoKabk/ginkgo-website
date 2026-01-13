@@ -79,9 +79,8 @@ function initializeProjectInteractions() {
     });
 
     // Re-initialize image interactions for this card
-    if (window.matchMedia('(pointer: fine)').matches) {
-      initializeImageInteractions(card);
-    }
+    // Enabled on all devices now (including mobile)
+    initializeImageInteractions(card);
   });
 }
 

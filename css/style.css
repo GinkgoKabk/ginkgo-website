@@ -361,17 +361,7 @@ h3 {
   cursor: zoom-out;
 }
 
-@media (pointer: coarse) {
-  .project-images img.expanded {
-    position: static;
-    max-width: 100%;
-    max-height: 100%;
-    transform: none;
-    box-shadow: none;
-    background: none;
-    cursor: pointer;
-  }
-}
+/* @media (pointer: coarse) removed to allow gallery on mobile */
 
 
 /* Filter Section */
@@ -890,12 +880,7 @@ footer {
   }
 }
 
-@media (pointer: coarse),
-(max-width: 900px) {
-  .img-arrow {
-    display: none !important;
-  }
-}
+/* .img-arrow display:none removed to show arrows on mobile */
 
 @media (max-width: 600px) {
   header nav {
@@ -1186,6 +1171,15 @@ footer {
   .description-content p,
   .project-details p {
     font-size: 15px;
+  }
+
+  /* Mobile: Arrows closer to edge */
+  .img-arrow-left {
+    left: 10px;
+  }
+
+  .img-arrow-right {
+    right: 10px;
   }
 }
 
