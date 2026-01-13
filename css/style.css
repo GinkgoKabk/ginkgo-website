@@ -898,13 +898,40 @@ footer {
     margin-left: 2px;
   }
 
+  /* Sticky Header */
   header {
-    margin: 8px 4px 2px 4px;
-    padding: 2px 2px;
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    background: #ffffff;
+    margin: 0 !important;
+    /* Remove margins for flush sticky */
+    padding: 8px 10px;
+    /* Add internal padding */
+    border-bottom: 2px dotted #2D3C25;
+    width: 100%;
+    box-sizing: border-box;
   }
 
+  /* Sticky Filters (Stacked below header) */
+  .filters {
+    position: sticky;
+    top: 60px;
+    /* Approx header height (40px logo + 16px padding + borders) */
+    z-index: 9000;
+    background: #ffffff;
+    margin: 0 !important;
+    border-top: none;
+    /* Merged visually with header */
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px dotted #2D3C25;
+  }
+
+  /* Adjust Grid to not be hidden by sticky elements */
   .projects-grid {
     margin: 4px 4px 2px 4px;
+    padding-top: 4px;
   }
 
   .project-summary h3 {
