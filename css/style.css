@@ -966,10 +966,16 @@ footer {
     border: none;
     border-right: 1px solid #2D3C25;
     border-radius: 0;
-    padding: 6px 4px;
-    /* Adjust padding */
+    padding: 12px 4px;
+    /* Double height (was 6px) */
     height: 100%;
     /* Fill height */
+    font-size: 14px;
+    /* Match mobile nav size */
+    font-family: Georgia, serif;
+    /* Match site typeface */
+    color: #2D3C25;
+    background: transparent;
   }
 
   /* Remove right border from the last element (Year) */
