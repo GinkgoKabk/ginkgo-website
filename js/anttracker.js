@@ -3,6 +3,7 @@ const antSize = 32;
 const antCount = 8; // Number of ants on screen at once
 const ants = [];
 let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+let antsEnabled = true; // State for toggle
 
 function randomScreenEdgePoint() {
   const padding = 20;
@@ -100,9 +101,29 @@ window.addEventListener('touchend', (e) => {
 
 // Spawn ants at intervals, up to antCount
 setInterval(() => {
-  if (ants.length < antCount) {
+  if (antsEnabled && ants.length < antCount) {
     ants.push(spawnAnt());
   }
 }, 700);
 
 animateAnts();
+
+// Initialize Toggle Button Logic
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('ants-toggle-btn');
+  if (toggleBtn) {
+    // Set initial text
+    toggleBtn.textContent = antsEnabled ? "Ants On" : "Ants Off";
+
+    toggleBtn.addEventListener('click', () => {
+      antsEnabled = !antsEnabled;
+      toggleBtn.textContent = antsEnabled ? "Ants On" : "Ants Off";
+
+      if (!antsEnabled) {
+        // Remove all existing ants immediately
+        ants.forEach(ant => ant.el.remove());
+        ants.length = 0;
+      }
+    });
+  }
+});
