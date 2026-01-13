@@ -115,7 +115,9 @@ async function fetchProjects() {
                         ${artistUrl && artistUrl !== '#' ? `<a href="${artistUrl}" target="_blank" rel="noopener noreferrer">${artist}</a>` : artist}
                     </p>
                     <p class="area">${area}</p>
-                    <p class="tags">${tags}</p>
+                    <p class="tags">
+                        ${tags.split(',').map(tag => tag.trim()).filter(Boolean).map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
+                    </p>
                 </div>
                 <div class="project-details">
                     <div class="description-content">${renderedDescription}</div>
@@ -219,7 +221,7 @@ function renderStrapiBlocksForProjects(blocks) {
             if (child.code) t = `<code>${t}</code>`;
             // Handle links if child.type === 'link' (basic support)
             if (child.type === 'link') {
-                 t = `<a href="${child.url}">${child.children[0].text}</a>`;
+                t = `<a href="${child.url}">${child.children[0].text}</a>`;
             }
             return t;
         }).join('') : '';
@@ -227,7 +229,7 @@ function renderStrapiBlocksForProjects(blocks) {
         switch (block.type) {
             case 'paragraph': return `<p>${text}</p>`;
             case 'heading': return `<h${block.level}>${text}</h${block.level}>`;
-            case 'list': 
+            case 'list':
                 const tag = block.format === 'ordered' ? 'ol' : 'ul';
                 const items = block.children.map(item => `<li>${item.children.map(c => c.text).join('')}</li>`).join('');
                 return `<${tag}>${items}</${tag}>`;

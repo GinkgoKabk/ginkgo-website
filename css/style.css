@@ -434,11 +434,46 @@ h3 {
 
 .project-summary .tags {
   grid-column: 4;
-  padding-left: 0;
   grid-row: 1;
+  padding-left: 0;
   text-align: left;
   color: #2D3C25;
   font-size: 14px;
+
+  /* Fade out effect for collapsed state */
+  white-space: nowrap;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  display: block;
+}
+
+/* Individual tag pills */
+.tag-pill {
+  display: inline-block;
+  border: 1px solid #2D3C25;
+  border-radius: 12px;
+  padding: 1px 8px;
+  margin-right: 4px;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.project-summary:hover .tag-pill {
+  border-color: #EA9B3F;
+  color: #EA9B3F;
+}
+
+/* Expanded state: Show all tags, wrap them, remove fade */
+.project-card.expanded .project-summary .tags {
+  white-space: normal;
+  overflow: visible;
+  mask-image: none;
+  -webkit-mask-image: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .project-summary .date {
