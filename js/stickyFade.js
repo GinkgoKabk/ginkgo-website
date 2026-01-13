@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (stickyElements.length === 0) return;
 
     let fadeTimeout;
-    const idleTime = 2000; // 2 seconds
+    const idleTime = 1500; // 1.5 seconds
+    let lastScrollY = window.scrollY;
 
     // State to track search/input focus
     let isFocused = false;
@@ -53,28 +54,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('scroll', () => {
-        // Check top position
-        if (window.scrollY <= 10) {
-            showStickyElements(); // Always show at top
-            clearTimeout(fadeTimeout);
-            fadeTimeout = null; // Reset ID
-        } else {
-            // If scrolled down
-            if (!isFocused) {
-                // Do NOT wake up on scroll.
-                // Only ensure we fade if we are currently visible (e.g. just left top or recently hovered)
-                const isVisible = stickyElements[0].style.opacity === '1';
+        const currentScrollY = window.scrollY;
 
-                if (isVisible && !fadeTimeout) {
-                    // We just left the top or became idle, start the countdown
-                    fadeTimeout = setTimeout(fadeStickyElements, idleTime);
-                }
-                // If not visible, do nothing. Scrolling stays faded.
-            } else {
-                showStickyElements(); // Keep visible if focused
+        // Always show at very top
+        if (currentScrollY <= 10) {
+            showStickyElements();
+            clearTimeout(fadeTimeout);
+            fadeTimeout = null;
+        } else {
+            // Check Focus
+            if (isFocused) {
+                showStickyElements();
                 clearTimeout(fadeTimeout);
             }
+            else {
+                // Detect Scroll Direction
+                // If scrolling UP (current < last), show header (Wake Up)
+                // We add a small threshold to avoid jitter? maybe not needed.
+                if (currentScrollY < lastScrollY) {
+                    // Scrolled UP -> Show
+                    showStickyElements();
+                    clearTimeout(fadeTimeout);
+                    // Start timer so it fades again if they stop scrolling up
+                    fadeTimeout = setTimeout(fadeStickyElements, idleTime);
+                } else {
+                    // Scrolled DOWN -> Fade (or ensure timer is running)
+                    // If visible, start timer to fade
+                    const isVisible = stickyElements[0].style.opacity === '1';
+                    if (isVisible && !fadeTimeout) {
+                        fadeTimeout = setTimeout(fadeStickyElements, idleTime);
+                    }
+                }
+            }
         }
+        lastScrollY = currentScrollY;
     }, { passive: true });
 
 
