@@ -282,11 +282,22 @@ h3 {
   font-size: 30px;
   /* Doubled from ~15px default */
   line-height: 1.4;
-  max-width: 50ch;
+  max-width: 65ch;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  text-align: left;
   margin: 10px auto;
+}
+
+.expanded-project-title {
+  font-family: Georgia, serif;
+  font-size: 64px;
+  font-weight: normal;
+  color: #EA9B3F;
+  text-align: center;
+  width: 100%;
+  margin: 120px auto 120px auto;
+  line-height: 1.1;
 }
 
 /* Add images' style for the expanded section */
@@ -594,6 +605,7 @@ h3 {
 
 footer {
   color: #2D3C25;
+  margin-bottom: 100px;
 }
 
 /* Popup modal overlay */

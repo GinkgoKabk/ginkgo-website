@@ -118,6 +118,7 @@ async function fetchProjects() {
                     </p>
                 </div>
                 <div class="project-details">
+                    <h3 class="expanded-project-title">${title}</h3>
                     <div class="description-content">${renderedDescription}</div>
                     <div class="project-images">
                         ${imagesHtml}
