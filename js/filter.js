@@ -94,13 +94,18 @@ function closeGallery() {
 }
 
 function openGallery(img) {
-  // Close any currently open gallery first
-  closeGallery();
+  // Check for currently expanded image (switching vs opening)
+  const currentExpanded = document.querySelector('.project-images img.expanded');
+  if (currentExpanded) {
+    currentExpanded.classList.remove('expanded');
+  } else {
+    // Start fresh
+    createOverlay();
+    document.addEventListener('keydown', handleArrowNav);
+  }
 
   img.classList.add('expanded');
-  createOverlay();
   showImageArrows(img);
-  document.addEventListener('keydown', handleArrowNav);
 }
 
 function createOverlay() {

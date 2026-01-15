@@ -1224,16 +1224,21 @@ footer {
 .form-submission a {
   text-decoration: none;
   font-family: Georgia, serif;
-  font-size: 24px;
+  font-size: 16px;
+  /* Standard button text size */
   color: #2D3C25;
-  transition: color 0.3s ease;
+  border: 2px dotted #2D3C25;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
   display: inline-block;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 .contact-form a:hover,
 .form-submission a:hover {
-  color: #EA9B3F;
+  background: #EA9B3F;
+  color: #2D3C25;
 }
 
 .form-submission label {
@@ -1253,6 +1258,7 @@ footer {
   color: #2D3C25;
   background: #fff;
   border-radius: 0px;
+  text-align: left;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -1657,11 +1663,7 @@ body,
 
 @media (max-width: 600px) {
 
-  .contact-form a,
-  .form-submission a {
-    font-size: 18px;
-  }
-
+  /* Button font size handled by main rule or can be adjusted if needed */
   .expanded-project-title {
     font-size: 30px !important;
   }
@@ -1669,9 +1671,7 @@ body,
 
 @media (max-width: 360px) {
 
-  header nav a,
-  .contact-form a,
-  .form-submission a {
+  header nav a {
     font-size: 14px;
     /* Smaller than the 18px mobile default */
   }
