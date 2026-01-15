@@ -1056,16 +1056,12 @@ footer {
 
 
   .form-submission {
-    margin: 4px 4px 2px 4px !important;
-    padding: 8px !important;
     width: auto !important;
     box-sizing: border-box;
   }
 
 
   .contact-form {
-    margin: 4px 4px 2px 4px !important;
-    padding: 8px !important;
     width: auto !important;
     box-sizing: border-box;
   }
@@ -1214,7 +1210,7 @@ footer {
   border: 2px dotted #2D3C25;
   border-radius: 0px;
   padding: 20px;
-  margin: 30px 30px 3px 30px;
+  margin-top: 8px;
   display: grid;
   gap: 10px;
   text-align: center;
@@ -1222,6 +1218,22 @@ footer {
 
 .form-submission li {
   list-style: none;
+}
+
+.contact-form a,
+.form-submission a {
+  text-decoration: none;
+  font-family: Georgia, serif;
+  font-size: 24px;
+  color: #2D3C25;
+  transition: color 0.3s ease;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.contact-form a:hover,
+.form-submission a:hover {
+  color: #EA9B3F;
 }
 
 .form-submission label {
@@ -1274,7 +1286,7 @@ footer {
   border: 2px dotted #2D3C25;
   border-radius: 0px;
   padding: 20px;
-  margin: 30px 30px 3px 30px;
+  margin-top: 8px;
   display: grid;
   gap: 10px;
   text-align: center;
@@ -1469,7 +1481,7 @@ body,
   font-weight: normal;
   color: #2D3C25;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 .news-summary .date {
@@ -1478,7 +1490,7 @@ body,
   color: #2D3C25;
   font-style: italic;
   margin-top: -4px;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   /* Close to title */
 }
 
@@ -1574,6 +1586,16 @@ body,
     /* Move date below title on mobile */
   }
 
+  .news-summary h3 {
+    font-size: 30px !important;
+    /* Twice the size of description text */
+  }
+
+  .news-preview {
+    font-size: 15px !important;
+    /* Match description text size */
+  }
+
   /* Actually, let's flex-direction column the header row on mobile for better space */
   .news-header-row {
     flex-direction: column;
@@ -1633,8 +1655,23 @@ body,
   }
 }
 
+@media (max-width: 600px) {
+
+  .contact-form a,
+  .form-submission a {
+    font-size: 18px;
+  }
+
+  .expanded-project-title {
+    font-size: 30px !important;
+  }
+}
+
 @media (max-width: 360px) {
-  header nav a {
+
+  header nav a,
+  .contact-form a,
+  .form-submission a {
     font-size: 14px;
     /* Smaller than the 18px mobile default */
   }
